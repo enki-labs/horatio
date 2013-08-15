@@ -1,0 +1,88 @@
+<% include header %>
+<% include mainnav %>
+
+<!--{//{tab.content}//}-->
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="span12">
+            <div ng-controller="MainTabsCtrl">
+                <tabset>
+                    <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">                        
+                        <div ng-include="tab.content"></div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include scripts %>
+
+<script>
+
+var loadSubsection = function (name) { return function ($scope) {
+    console.log("loadSubsection");
+    $scope.classes = [
+        { name: "A1 Pony Club EventRider 12 years and under to be ridden in full Pony Club...", content: name },
+        { name: "A2 Lead Rein, Smartest on Parade", content: name },
+        { name: "A3 Lead Rein Rider 8 years and under, attendant to lead", content: name }
+    ];
+}};
+
+var loadSection = function (name) { return function ($scope) {
+    console.log("loadSection");
+    $scope.subsections = [
+        { name: "AA Saddle Ponies", content: "classCtrl.html", context: loadSubsection("AA Saddle Ponies") },
+        { name: "AB Saddle Horses", content: "classCtrl.html", context: loadSubsection("AB Saddle Horses") },
+        { name: "AC Jumping Events", content: "classCtrl.html", context: loadSubsection("AC Jumping Events") }
+    ];
+}};
+
+var loadSchedule = function ($scope) {
+    console.log("loadSchedule");    
+    $scope.sections = [
+        { name: "A Ring Events", content: "subsectionCtrl.html", context: loadSection("A Ring Events") }
+    ];
+    
+};
+
+var MainTabsCtrl = function ($scope, $http, $templateCache) {
+    $scope.tabs = [
+        { title:"Schedule", content:"scheduleCtrl.html", context: loadSchedule },
+        { title:"Entries", content:"content2", disabled: false },
+        { title:"Trade Stalls", content:"content3" },
+        { title:"Memberships", content:"content4" },
+        { title:"Sponsorships", content:"content5" },
+        { title:"Show Day Reports", content:"content6" },
+        { title:"Results", content:"content7" },
+        { title:"General", content:"content8" },
+    ];
+};
+
+function ScheduleCtrl ($scope) {
+    console.log("ScheduleCtrl");
+    $scope.oneAtATime = true;
+    $scope.tab.context($scope);    
+};
+
+function SubsectionCtrl ($scope) {
+    console.log("SubsectionCtrl");
+    $scope.oneAtATime = true;
+    $scope.section.context($scope);
+};
+
+function ClassCtrl($scope) {
+    console.log("ClassCtrl");
+    $scope.oneAtATime = true;
+    $scope.subsection.context($scope);
+};
+
+function EditSectionCtrl($scope) {
+    console.log("EditSectionCtrl");
+};
+
+</script>
+
+<% include footer %>
+

@@ -1,0 +1,8 @@
+<div ng-controller="SubsectionCtrl">
+    <h5>Sub Sections</h5>
+    <accordion close-others="oneAtATime">
+        <accordion-group heading="{{subsection.name}}" ng-repeat="subsection in subsections">
+            <div ng-include="subsection.content"></div>
+        </accordion-group>
+    </accordion>
+</div>

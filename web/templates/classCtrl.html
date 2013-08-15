@@ -1,0 +1,8 @@
+<div ng-controller="ClassCtrl">
+    <h6>Classes</h6>
+    <accordion close-others="oneAtATime">
+        <accordion-group heading="{{class.name}}" ng-repeat="class in classes">
+            {{class.content}}
+        </accordion-group>
+    </accordion>
+</div>

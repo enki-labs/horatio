@@ -1,0 +1,16 @@
+<div ng-controller="ScheduleCtrl">
+    <h4>Sections</h4>
+  <accordion close-others="oneAtATime">
+    <accordion-group>
+        <accordion-heading>
+            <i class="icon-plus-sign"></i> Add section...
+        </accordion-heading>
+        
+        <div ng-include="'editSectionCtrl.html'"></div>
+        
+    </accordion-group>
+    <accordion-group heading="{{section.name}}" ng-repeat="section in sections">
+        <div ng-include="section.content"></div>
+    </accordion-group>
+  </accordion>
+</div>
